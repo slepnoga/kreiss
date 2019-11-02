@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator as CSDD;
 use InvalidArgumentException;
@@ -34,6 +36,21 @@ class Trailer
      *
      */
     private $licensenumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FrigoRefill", mappedBy="event")
+     */
+    private $frigoRefills;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $consumptionrate;
+
+    public function __construct()
+    {
+        $this->frigoRefills = new ArrayCollection();
+    }
 
 
 
@@ -73,6 +90,49 @@ class Trailer
     public function setLicensenumber(string $licensenumber): self
     {
         $this->licensenumber = $licensenumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FrigoRefill[]
+     */
+    public function getFrigoRefills(): Collection
+    {
+        return $this->frigoRefills;
+    }
+
+    public function addFrigoRefill(FrigoRefill $frigoRefill): self
+    {
+        if (!$this->frigoRefills->contains($frigoRefill)) {
+            $this->frigoRefills[] = $frigoRefill;
+            $frigoRefill->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFrigoRefill(FrigoRefill $frigoRefill): self
+    {
+        if ($this->frigoRefills->contains($frigoRefill)) {
+            $this->frigoRefills->removeElement($frigoRefill);
+            // set the owning side to null (unless already changed)
+            if ($frigoRefill->getEvent() === $this) {
+                $frigoRefill->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getConsumptionrate(): ?int
+    {
+        return $this->consumptionrate;
+    }
+
+    public function setConsumptionrate(?int $consumptionrate): self
+    {
+        $this->consumptionrate = $consumptionrate;
 
         return $this;
     }
