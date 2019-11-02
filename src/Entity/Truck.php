@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator as CSDD;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TruckRepository")
@@ -18,7 +20,7 @@ class Truck
 
     /**
      * @ORM\Column(type="string", nullable=false, unique=true)
-     *
+     * @CSDD\TruckNumberPlate()
      */
     private $licensenumber;
 
