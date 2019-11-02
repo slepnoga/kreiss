@@ -3,10 +3,18 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Table(name="user",
+ *    uniqueConstraints={
+ *        @UniqueConstraint(name="user_real_name",
+ *            columns={"fullname", "birthday"})
+ *    }
+ * )
  */
 class User implements UserInterface
 {
@@ -37,6 +45,16 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    private $fullname;
+
+    /**
+     * @ORM\Column(type="date", nullable=false, options={"default"="1800-01-01"})
+     */
+    private $birthday;
 
 
     public function getId(): ?int
@@ -120,6 +138,30 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFullname(): ?string
+    {
+        return $this->fullname;
+    }
+
+    public function setFullname(string $fullname): self
+    {
+        $this->fullname = $fullname;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?string
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(string $birthday): self
+    {
+        $this->birthday = $birthday;
 
         return $this;
     }
