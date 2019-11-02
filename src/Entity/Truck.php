@@ -42,6 +42,18 @@ class Truck
      */
     private $adBlueRefills;
 
+    /**
+     * @ORM\Column(type="integer")
+     *
+     */
+    private $deepcomp;
+
+    /**
+     *  @ORM\Column(type="integer")
+     */
+    private $odometr;
+
+
     public function __construct()
     {
         $this->fuelRefills = new ArrayCollection();
@@ -138,6 +150,30 @@ class Truck
                 $adBlueRefill->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeepcomp(): ?int
+    {
+        return $this->deepcomp;
+    }
+
+    public function setDeepcomp(int $deepcomp): self
+    {
+        $this->deepcomp = $deepcomp;
+
+        return $this;
+    }
+
+    public function getOdometr(): ?int
+    {
+        return $this->odometr;
+    }
+
+    public function setOdometr(int $odometr): self
+    {
+        $this->odometr = $odometr;
 
         return $this;
     }

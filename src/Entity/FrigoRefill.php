@@ -26,7 +26,16 @@ class FrigoRefill
      */
     private $event;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * Frigo consumption - 2 l or 2.3
+     */
+    private $consumptionrate;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $workhours;
 
     public function getId(): ?int
     {
@@ -53,6 +62,30 @@ class FrigoRefill
     public function setEvent(?Trailer $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getConsumptionrate(): ?int
+    {
+        return $this->consumptionrate;
+    }
+
+    public function setConsumptionrate(?int $consumptionrate): self
+    {
+        $this->consumptionrate = $consumptionrate;
+
+        return $this;
+    }
+
+    public function getWorkhours(): ?int
+    {
+        return $this->workhours;
+    }
+
+    public function setWorkhours(?int $workhours): self
+    {
+        $this->workhours = $workhours;
 
         return $this;
     }
