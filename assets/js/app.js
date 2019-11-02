@@ -6,9 +6,17 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../css/app.css');
+require('../scss/app.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+const $ = require('jquery');
+require('bootstrap');
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
+require('bootstrap-star-rating');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+require('bootstrap-star-rating/css/star-rating.css');
+require('bootstrap-star-rating/themes/krajee-svg/theme.css');
+require('bootstrap-sass');
+require('bootstrap-datepicker');
