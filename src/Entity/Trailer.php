@@ -20,14 +20,16 @@ class Trailer
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
+
     private $id;
     /**
      * @ORM\Column(type="json", nullable=false)
      */
+
     private $type;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, unique=true)
      * @CSDD\TrailerLicensePlate()
      *
      */
@@ -60,6 +62,18 @@ class Trailer
             ("Invalid trailer type. Valid is: frigo, container, dryvan");
         }
         $this->type = $type;
+        return $this;
+    }
+
+    public function getLicensenumber(): ?string
+    {
+        return $this->licensenumber;
+    }
+
+    public function setLicensenumber(string $licensenumber): self
+    {
+        $this->licensenumber = $licensenumber;
+
         return $this;
     }
 
