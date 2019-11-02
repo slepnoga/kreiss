@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator as CSDD;
 use InvalidArgumentException;
 
 /**
@@ -24,6 +25,13 @@ class Trailer
      * @ORM\Column(type="json", nullable=false)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     * @CSDD\TrailerLicensePlate()
+     *
+     */
+    private $licensenumber;
 
 
 
