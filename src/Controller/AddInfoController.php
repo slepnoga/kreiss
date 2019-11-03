@@ -20,7 +20,7 @@ class AddInfoController extends AbstractController
      */
     public function index():Response
     {
-        return new Response('Todo - menu');
+        return $this->render('add/add_main_page.html.twig');
     }
 
     /**
@@ -40,7 +40,7 @@ class AddInfoController extends AbstractController
             return new Response('User Saved');
         }
 
-        return $this->render('add/addform.html.twig', [
+        return $this->render('add/add_main_page.html.twig', [
              'adddriver' => $form->createView(),
 
         ]);
@@ -63,7 +63,7 @@ class AddInfoController extends AbstractController
         }
 
 
-        return $this->render('add/addform.html.twig', [
+        return $this->render('add/add_main_page.html.twig', [
             'adddriver' => $form->createView(),
 
         ]);
@@ -81,11 +81,12 @@ class AddInfoController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $trailer = $form ->getData();
             $em->persist($trailer);
+            $em->flush();
 
             return new Response('Trailer Saved');
         }
 
-        return $this->render('add/addform.html.twig', [
+        return $this->render('add/add_main_page.html.twig', [
             'adddriver' => $form->createView(),
 
         ]);

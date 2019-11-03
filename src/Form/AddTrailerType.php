@@ -20,9 +20,9 @@ class AddTrailerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type',CheckboxType::class,[
-                'label' => 'This is cargo? Default is frigo',
-                'required' => false,
+            ->add('type',ChoiceType::class,[
+                'choices' => [ 'frigo' => [1], 'dry' => [2]],
+                'preferred_choices' => ['frigo']
             ])
             ->add('licensenumber', TextType::class,[
                 'constraints'=>[
