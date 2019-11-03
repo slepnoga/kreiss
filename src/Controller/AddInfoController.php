@@ -24,6 +24,8 @@ class AddInfoController extends AbstractController
 
     /**
      * @Route("/addinfo/driver",methods={"POST", "GET"}, name="add_info_driver")
+     * @param Request $request
+     * @return Response
      */
     public function driver(Request $request): Response
     {
@@ -49,6 +51,7 @@ class AddInfoController extends AbstractController
     }
 
     /**
+     * @param Request $request
      * @return Response
      * @Route("/addinfo/truck", name="add_info_truck")
      */
@@ -78,6 +81,8 @@ class AddInfoController extends AbstractController
     /**
      *
      * @Route("/addinfo/trailer", name="add_info_trailer")
+     * @param Request $request
+     * @return Response
      */
     public function trailer(Request $request): Response
     {
