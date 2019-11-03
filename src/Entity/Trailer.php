@@ -13,9 +13,9 @@ use InvalidArgumentException;
  */
 class Trailer
 {
-    const  TRAILER_FRIGO = 'frigo';
-    const TRAILER_DRYVAN = 'dry';
-    const TRAILER_CONTAINER = 'container';
+    const  TRAILER_FRIGO = 1;
+    const TRAILER_DRYVAN = 2;
+    const TRAILER_CONTAINER = 4;
 
     /**
      * @ORM\Id()
@@ -25,7 +25,7 @@ class Trailer
 
     private $id;
     /**
-     * @ORM\Column(type="json", nullable=false)
+     * @ORM\Column(type="smallint", nullable=false)
      */
 
     private $type;
@@ -43,7 +43,7 @@ class Trailer
     private $frigoRefills;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $consumptionrate;
 
@@ -58,29 +58,9 @@ class Trailer
         return $this->id;
     }
 
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
+  
 
-    public function setType(array $type): self
-    {
-        if (!in_array(
-            $type,
-            [
-                self::TRAILER_CONTAINER,
-                self::TRAILER_DRYVAN,
-                self::TRAILER_FRIGO,
-            ]
-        )) {
-            throw new InvalidArgumentException(
-                "Invalid trailer type. Valid is: frigo, container, dryvan"
-            );
-        }
-        $this->type = $type;
 
-        return $this;
-    }
 
     public function getLicensenumber(): ?string
     {
@@ -125,12 +105,26 @@ class Trailer
         return $this;
     }
 
-    public function getConsumptionrate(): ?int
+  
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getConsumptionrate(): ?float
     {
         return $this->consumptionrate;
     }
 
-    public function setConsumptionrate(?int $consumptionrate): self
+    public function setConsumptionrate(?float $consumptionrate): self
     {
         $this->consumptionrate = $consumptionrate;
 

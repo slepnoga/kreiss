@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Trailer;
 use App\Form\AddDriversType;
 use App\Form\AddTrailerType;
 use App\Form\AddTruckType;
@@ -90,7 +91,28 @@ class AddInfoController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $trailer = $form->getData();
+            $trailer = new Trailer();
+            $type= $form ->get('type')->getData();
+            $consump= $form ->get('consumptionrate')->getData();
+            $licplate= $form->get('licensenumber')->getData();
+            // 1 - frigo, 2 -dryvan ... see entity
+            if ($type != 1 && $consump > 0) {
+              throw new \InvalidArgumentException('Non Frigo Have Fuel');
+            }
+
+            if($type ==1 ){
+                switch ($consump){
+                    case 2:
+                        break;
+                    case 2.3:
+                        break;
+                    default:
+                        throw new \InvalidArgumentException('Расход не тот');
+                }
+            }
+            $trailer->setType($type);
+            $trailer->setConsumptionrate($consump);
+            $trailer->setLicensenumber($licplate);
             $em->persist($trailer);
             $em->flush();
 

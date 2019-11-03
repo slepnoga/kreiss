@@ -18,7 +18,7 @@ class TruckNumberPlateValidator extends ConstraintValidator
         if (!is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
-        if (!preg_match('/^[A-Z]{2}-[0-9]{4}/', $value, $matches)) {
+        if (!preg_match('/^[A-Z]{2}-[0-9]{1,4}$/', $value, $matches)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
