@@ -3,9 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TelefonRepository")
+ * @Table(
+ *     name="telefon",uniqueConstraints={
+ *     @UniqueConstraint(name="tel_plus_truck",columns={"phonenumber", "truck"})}
+ *     )
+ *
  */
 class Telefon
 {
@@ -26,7 +34,7 @@ class Telefon
     private $billing;
 
     /**
-     *  @ORM\Column(type="text", nullable=false)
+     *  @ORM\Column(type="string", nullable=false)
      */
     private $truck;
 

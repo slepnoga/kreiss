@@ -6,10 +6,13 @@ use App\Validator as CSDD;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
 use InvalidArgumentException;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrailerRepository")
+ * @Table(name="trailer",indexes={@Index(name="search_idx", columns={"type", "licensenumber"})})
  */
 class Trailer
 {
@@ -47,9 +50,15 @@ class Trailer
      */
     private $consumptionrate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RefillFrigo", mappedBy="trailer")
+     */
+    private $refillFrigos;
+
     public function __construct()
     {
         $this->frigoRefills = new ArrayCollection();
+        $this->refillFrigos = new ArrayCollection();
     }
 
 
@@ -127,6 +136,37 @@ class Trailer
     public function setConsumptionrate(?float $consumptionrate): self
     {
         $this->consumptionrate = $consumptionrate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RefillFrigo[]
+     */
+    public function getRefillFrigos(): Collection
+    {
+        return $this->refillFrigos;
+    }
+
+    public function addRefillFrigo(RefillFrigo $refillFrigo): self
+    {
+        if (!$this->refillFrigos->contains($refillFrigo)) {
+            $this->refillFrigos[] = $refillFrigo;
+            $refillFrigo->setTrailer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRefillFrigo(RefillFrigo $refillFrigo): self
+    {
+        if ($this->refillFrigos->contains($refillFrigo)) {
+            $this->refillFrigos->removeElement($refillFrigo);
+            // set the owning side to null (unless already changed)
+            if ($refillFrigo->getTrailer() === $this) {
+                $refillFrigo->setTrailer(null);
+            }
+        }
 
         return $this;
     }

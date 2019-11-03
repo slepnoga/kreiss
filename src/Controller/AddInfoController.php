@@ -146,16 +146,19 @@ class AddInfoController extends AbstractController
             $truckNumber = $form->get('truck')->getData();
             $phonenumber = $form->get('phonenumber')->getData();
             $repo=$this->getDoctrine()->getRepository(Truck::class);
-            $reallicense = $repo->findOneByLicenseNumber($truckNumber);
-            dd($reallicense);
+            $reallicense = $repo->findOneByLicenseNumber($truckNumber)->getLicensenumber();
+
             if($truckNumber != $reallicense){
                 return new Response('This car not found in database!!!');
             }
             $telefon -> setPhonenumber($phonenumber);
+            $telefon ->setTruck($truckNumber);
+            $telefon ->setBilling($form->get('billance')->getData());
 
             $em->persist($telefon);
+            $em->flush();
 
-
+            return new Response('Telefon Saved');
         }
         return $this->render(
             'add/add_main_page.html.twig',
