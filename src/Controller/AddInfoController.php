@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Telefon;
 use App\Entity\Trailer;
+use App\Entity\Truck;
 use App\Form\AddDriversType;
 use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
@@ -138,7 +140,23 @@ class AddInfoController extends AbstractController
     {
         $form = $this->createForm(AddTelefonType::class);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $telefon = new Telefon();
+            $truckNumber = $form->get('truck')->getData();
+            $phonenumber = $form->get('phonenumber')->getData();
+            $repo=$this->getDoctrine()->getRepository(Truck::class);
+            $reallicense = $repo->findOneByLicenseNumber($truckNumber);
+            dd($reallicense);
+            if($truckNumber != $reallicense){
+                return new Response('This car not found in database!!!');
+            }
+            $telefon -> setPhonenumber($phonenumber);
 
+            $em->persist($telefon);
+
+
+        }
         return $this->render(
             'add/add_main_page.html.twig',
             [

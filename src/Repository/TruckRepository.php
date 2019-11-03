@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Truck;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Truck|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,7 +23,7 @@ class TruckRepository extends ServiceEntityRepository
     // /**
     //  * @return Truck[] Returns an array of Truck objects
     //  */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('t')
@@ -34,9 +35,9 @@ class TruckRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
+/*
+
     public function findOneBySomeField($value): ?Truck
     {
         return $this->createQueryBuilder('t')
@@ -46,5 +47,19 @@ class TruckRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+*/
+
+    public function findOneByLicenseNumber($value): ?Truck
+    {
+        try {
+            $res = $this->createQueryBuilder('t')
+                ->andWhere('t.licensenumber = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+        return  $res;
+    }
+
 }

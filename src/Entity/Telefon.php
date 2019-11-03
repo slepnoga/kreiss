@@ -26,8 +26,7 @@ class Telefon
     private $billing;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Truck", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="telBill", referencedColumnName="telBilling")
+     *  @ORM\Column(type="text", nullable=false)
      */
     private $truck;
 
@@ -60,17 +59,19 @@ class Telefon
         return $this;
     }
 
-    public function getTruck(): ?Truck
+    public function getTruck(): ?string
     {
         return $this->truck;
     }
 
-    public function setTruck(?Truck $truck): self
+    public function setTruck(string $truck): self
     {
         $this->truck = $truck;
 
         return $this;
     }
+
+
 
 
 }
