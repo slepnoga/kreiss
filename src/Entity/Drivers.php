@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DriversRepository")
@@ -67,17 +67,15 @@ class Drivers
         return $this;
     }
 
-    public function getBrightday(): ?\DateTimeInterface
+    public function getBrightday(): ?DateTimeInterface
     {
         return $this->brightday;
     }
 
-    public function setBrightday(\DateTimeInterface $brightday): self
+    public function setBrightday(DateTimeInterface $brightday): self
     {
         $this->brightday = $brightday;
 
         return $this;
     }
-
-
 }

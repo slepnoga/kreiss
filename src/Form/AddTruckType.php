@@ -18,40 +18,57 @@ class AddTruckType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('licensenumber',TextType::class,[
-                'constraints'=> [
-                    new TruckNumberPlate(),
-                    new NotBlank()
+            ->add(
+                'licensenumber',
+                TextType::class,
+                [
+                    'constraints' => [
+                        new TruckNumberPlate(),
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('fueltanksize',IntegerType::class,[
-                'data'=> '1200',
-                'constraints' => [
-                    new NotBlank(),
-                    new Positive()
+            )
+            ->add(
+                'fueltanksize',
+                IntegerType::class,
+                [
+                    'data' => '1200',
+                    'constraints' => [
+                        new NotBlank(),
+                        new Positive(),
+                    ],
                 ]
-            ])
-            ->add('deepcomp', IntegerType::class,[
-                'constraints' => [
-                    new NotBlank(),
-                    new Positive()
+            )
+            ->add(
+                'deepcomp',
+                IntegerType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                        new Positive(),
+                    ],
                 ]
-            ])
-            ->add('odometr', IntegerType::class,[
-                'constraints' =>[
-                    new NotBlank(),
-                    new Positive()
+            )
+            ->add(
+                'odometr',
+                IntegerType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                        new Positive(),
+                    ],
                 ]
-            ])
+            )
             ->add('submit', SubmitType::class)
-            ->setMethod('POST')
-        ;
+            ->setMethod('POST');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Truck::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Truck::class,
+            ]
+        );
     }
 }

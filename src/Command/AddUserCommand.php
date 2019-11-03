@@ -148,8 +148,8 @@ HELP;
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         if (null !== $input->getArgument('username') && null !== $input->getArgument(
-                'password'
-            ) && null !== $input->getArgument('email')) {
+            'password'
+        ) && null !== $input->getArgument('email')) {
             return;
         }
 
@@ -194,8 +194,6 @@ HELP;
             $email = $this->io->ask('Email', null, [$this->validator, 'validateEmail']);
             $input->setArgument('email', $email);
         }
-
-
     }
 
     /**

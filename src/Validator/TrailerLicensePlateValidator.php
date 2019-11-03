@@ -10,7 +10,7 @@ class TrailerLicensePlateValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        /* @var $constraint \App\Validator\TruckNumberPlate */
+        /* @var $constraint TruckNumberPlate */
 
         if (null === $value || '' === $value) {
             return;

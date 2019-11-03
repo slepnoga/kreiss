@@ -17,33 +17,46 @@ class AddDriversType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,[
-                'constraints' => [
-                    new  NotBlank(),
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'constraints' => [
+                        new  NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('surname', TextType::class,[
-                'constraints' =>[
-                    new NotBlank()
+            )
+            ->add(
+                'surname',
+                TextType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('brightday', DateType::class, [
-                'widget' => 'single_text',
+            )
+            ->add(
+                'brightday',
+                DateType::class,
+                [
+                    'widget' => 'single_text',
                     'attr' => ['class' => 'datepicker'],
-                'constraints'=>[
-                    new NotBlank(),
-                    new Date()
+                    'constraints' => [
+                        new NotBlank(),
+                        new Date(),
+                    ],
                 ]
-                ])
+            )
             ->add('submit', SubmitType::class)
-            ->setMethod('POST')
-        ;
+            ->setMethod('POST');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Drivers::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Drivers::class,
+            ]
+        );
     }
 }

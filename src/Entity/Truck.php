@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
+use App\Validator as CSDD;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Validator as CSDD;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TruckRepository")
@@ -49,7 +48,7 @@ class Truck
     private $deepcomp;
 
     /**
-     *  @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")
      */
     private $odometr;
 
@@ -59,8 +58,6 @@ class Truck
         $this->fuelRefills = new ArrayCollection();
         $this->adBlueRefills = new ArrayCollection();
     }
-
-    
 
 
     public function getId(): ?int

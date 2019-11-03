@@ -13,8 +13,11 @@ class OtchetController extends AbstractController
      */
     public function index()
     {
-        return $this->render('otchet/index.html.twig', [
+        return $this->render(
+            'otchet/index.html.twig',
+            [
 
-        ]);
+            ]
+        );
     }
 }

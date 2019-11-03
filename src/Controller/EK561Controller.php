@@ -14,8 +14,11 @@ class EK561Controller extends AbstractController
      */
     public function index()
     {
-        return $this->render('ek561/index.html.twig', [
+        return $this->render(
+            'ek561/index.html.twig',
+            [
 
-        ]);
+            ]
+        );
     }
 }

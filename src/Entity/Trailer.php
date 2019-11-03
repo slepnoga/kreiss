@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
+use App\Validator as CSDD;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Validator as CSDD;
 use InvalidArgumentException;
 
 /**
@@ -13,9 +13,9 @@ use InvalidArgumentException;
  */
 class Trailer
 {
-    const  TRAILER_FRIGO='frigo';
-    const TRAILER_DRYVAN='dry';
-    const TRAILER_CONTAINER='container';
+    const  TRAILER_FRIGO = 'frigo';
+    const TRAILER_DRYVAN = 'dry';
+    const TRAILER_CONTAINER = 'container';
 
     /**
      * @ORM\Id()
@@ -53,8 +53,6 @@ class Trailer
     }
 
 
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -75,10 +73,12 @@ class Trailer
                 self::TRAILER_FRIGO,
             ]
         )) {
-            throw new InvalidArgumentException
-            ("Invalid trailer type. Valid is: frigo, container, dryvan");
+            throw new InvalidArgumentException(
+                "Invalid trailer type. Valid is: frigo, container, dryvan"
+            );
         }
         $this->type = $type;
+
         return $this;
     }
 
@@ -136,6 +136,4 @@ class Trailer
 
         return $this;
     }
-
-
 }
