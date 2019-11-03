@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trailer;
 use App\Form\AddDriversType;
+use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
 use App\Form\AddTruckType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,6 +119,25 @@ class AddInfoController extends AbstractController
 
             return new Response('Trailer Saved');
         }
+
+        return $this->render(
+            'add/add_main_page.html.twig',
+            [
+                'adddriver' => $form->createView(),
+
+            ]
+        );
+    }
+    /**
+     *
+     * @Route("/addinfo/telefon", name="add_info_telefon")
+     * @param Request $request
+     * @return Response
+     */
+    public function telefon(Request $request) :Response
+    {
+        $form = $this->createForm(AddTelefonType::class);
+        $form->handleRequest($request);
 
         return $this->render(
             'add/add_main_page.html.twig',

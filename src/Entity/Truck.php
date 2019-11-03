@@ -40,6 +40,10 @@ class Truck
      * @ORM\OneToMany(targetEntity="App\Entity\AdBlueRefill", mappedBy="event")
      */
     private $adBlueRefills;
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Telefon", mappedBy="truck")
+     */
+    private $telBilling;
 
     /**
      * @ORM\Column(type="integer")
@@ -57,6 +61,7 @@ class Truck
     {
         $this->fuelRefills = new ArrayCollection();
         $this->adBlueRefills = new ArrayCollection();
+        $this->telBilling = new ArrayCollection();
     }
 
 
@@ -171,6 +176,27 @@ class Truck
     public function setOdometr(int $odometr): self
     {
         $this->odometr = $odometr;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTelBilling() : self
+    {
+        return $this->telBilling;
+    }
+
+    public function setTelBilling(?Telefon $telBilling): self
+    {
+        $this->telBilling = $telBilling;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTruck = null === $telBilling ? null : $this;
+        if ($telBilling->getTruck() !== $newTruck) {
+            $telBilling->setTruck($newTruck);
+        }
 
         return $this;
     }

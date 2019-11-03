@@ -27,24 +27,13 @@ class Telefon
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Truck", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="telBill", referencedColumnName="telBilling")
      */
     private $truck;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTruck(): ?Truck
-    {
-        return $this->truck;
-    }
-
-    public function setTruck(?Truck $truck): self
-    {
-        $this->truck = $truck;
-
-        return $this;
     }
 
     public function getPhonenumber(): ?int
@@ -70,4 +59,18 @@ class Telefon
 
         return $this;
     }
+
+    public function getTruck(): ?Truck
+    {
+        return $this->truck;
+    }
+
+    public function setTruck(?Truck $truck): self
+    {
+        $this->truck = $truck;
+
+        return $this;
+    }
+
+
 }
