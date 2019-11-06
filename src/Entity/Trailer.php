@@ -53,7 +53,6 @@ class Trailer
     public function __construct()
     {
         $this->frigoRefills = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -127,6 +126,4 @@ class Trailer
 
         return $this;
     }
-
-
 }

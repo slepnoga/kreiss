@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-
 class RefillFrigoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -53,6 +52,5 @@ class RefillFrigoType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 }

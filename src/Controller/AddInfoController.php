@@ -173,6 +173,4 @@ class AddInfoController extends AbstractController
             ]
         );
     }
-
-
 }

@@ -57,6 +57,5 @@ class RefillTruckType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 }
