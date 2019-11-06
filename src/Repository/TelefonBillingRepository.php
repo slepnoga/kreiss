@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Telefon;
+use App\Entity\TelefonBilling;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Telefon|null find($id, $lockMode = null, $lockVersion = null)
- * @method Telefon|null findOneBy(array $criteria, array $orderBy = null)
- * @method Telefon[]    findAll()
- * @method Telefon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TelefonBilling|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TelefonBilling|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TelefonBilling[]    findAll()
+ * @method TelefonBilling[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TelefonRepository extends ServiceEntityRepository
+class TelefonBillingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Telefon::class);
+        parent::__construct($registry, TelefonBilling::class);
     }
 
     // /**
-    //  * @return Telefon[] Returns an array of Telefon objects
+    //  * @return TelefonBilling[] Returns an array of TelefonBilling objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TelefonRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Telefon
+    public function findOneBySomeField($value): ?TelefonBilling
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

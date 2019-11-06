@@ -35,7 +35,7 @@ class Truck
     private $fueltanksize;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FuelRefill", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\FuelRefill", mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $fuelRefills;
 
@@ -56,11 +56,17 @@ class Truck
      */
     private $odometr;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="billing",cascade={"persist"}, fetch="EXTRA_LAZY")
+     */
+    private $telefonBillings;
+
 
     public function __construct()
     {
         $this->fuelRefills = new ArrayCollection();
         $this->adBlueRefills = new ArrayCollection();
+        $this->telefonBillings = new ArrayCollection();
     }
 
 
@@ -175,6 +181,37 @@ class Truck
     public function setOdometr(int $odometr): self
     {
         $this->odometr = $odometr;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TelefonBilling[]
+     */
+    public function getTelefonBillings(): Collection
+    {
+        return $this->telefonBillings;
+    }
+
+    public function addTelefonBilling(TelefonBilling $telefonBilling): self
+    {
+        if (!$this->telefonBillings->contains($telefonBilling)) {
+            $this->telefonBillings[] = $telefonBilling;
+            $telefonBilling->setBilling($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTelefonBilling(TelefonBilling $telefonBilling): self
+    {
+        if ($this->telefonBillings->contains($telefonBilling)) {
+            $this->telefonBillings->removeElement($telefonBilling);
+            // set the owning side to null (unless already changed)
+            if ($telefonBilling->getBilling() === $this) {
+                $telefonBilling->setBilling(null);
+            }
+        }
 
         return $this;
     }
