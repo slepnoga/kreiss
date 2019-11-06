@@ -27,15 +27,9 @@ class FrigoRefill
     private $event;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * Frigo consumption - 2 l or 2.3
+     * @ORM\Column(type="date", nullable=false)
      */
-    private $consumptionrate;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $workhours;
+    private $date;
 
     public function getId(): ?int
     {
@@ -66,26 +60,14 @@ class FrigoRefill
         return $this;
     }
 
-    public function getConsumptionrate(): ?int
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->consumptionrate;
+        return $this->date;
     }
 
-    public function setConsumptionrate(?int $consumptionrate): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->consumptionrate = $consumptionrate;
-
-        return $this;
-    }
-
-    public function getWorkhours(): ?int
-    {
-        return $this->workhours;
-    }
-
-    public function setWorkhours(?int $workhours): self
-    {
-        $this->workhours = $workhours;
+        $this->date = $date;
 
         return $this;
     }

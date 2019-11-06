@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Trailer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Trailer|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,16 @@ class TrailerRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneByLicenseNumber($value): ?Trailer
+    {
+        try {
+            $res = $this->createQueryBuilder('t')
+                ->andWhere('t.licensenumber = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+        return  $res;
+    }
 }

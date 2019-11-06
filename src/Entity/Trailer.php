@@ -49,15 +49,11 @@ class Trailer
      */
     private $consumptionrate;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RefillFrigo", mappedBy="trailer")
-     */
-    private $refillFrigos;
 
     public function __construct()
     {
         $this->frigoRefills = new ArrayCollection();
-        $this->refillFrigos = new ArrayCollection();
+
     }
 
     public function getId(): ?int

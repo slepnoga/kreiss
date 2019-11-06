@@ -17,7 +17,7 @@ class FuelRefill
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $truckrefill;
 
@@ -25,6 +25,17 @@ class FuelRefill
      * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="fuelRefills")
      */
     private $event;
+
+    /**
+     * @ORM\Column(type="string", length=3, nullable=false)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="date", nullable=false)
+     */
+    private $date;
+
 
     public function getId(): ?int
     {
@@ -51,6 +62,30 @@ class FuelRefill
     public function setTruckrefill(int $truckrefill): self
     {
         $this->truckrefill = $truckrefill;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
