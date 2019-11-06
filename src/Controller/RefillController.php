@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\AdBlueRefill;
+use App\Entity\RefillFrigo;
+use App\Entity\Trailer;
 use App\Entity\Truck;
 use App\Form\AdBlueRefillType;
+use App\Form\RefillFrigoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +35,7 @@ class RefillController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $addBlue = new AdBlueRefill();
             $truckclass = $this->getDoctrine()->getRepository(Truck::class);
-            // @Todo migrate to value
+
             $number = $form->get('licensenumber')->getData();
             $truck = $truckclass->findOneByLicenseNumber($number);
             $refilsize = $form->get('refill_size')->getData();
@@ -64,8 +67,28 @@ class RefillController extends AbstractController
      * @Route("/refill/trailer", name="trailer_refill")
      */
 
-    public function trailer()
+    public function trailer(Request $request) :Response
     {
+        $form = $this->createForm(RefillFrigoType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $refillFrigo= new  RefillFrigo();
+            $trailerclass = $this->getDoctrine()->getRepository(Trailer::class);
+            $number = $form->get('TrailerNumber')->getData();
+
+            //$trailer = $trailerclass->
+
+
+
+
+
+
+        }
+
+
+
+
         return $this->render(
             'refill/refill_main_page.html.twig',
             [
