@@ -67,6 +67,11 @@ class Truck
      */
     private $data;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TripEvents", mappedBy="truck")
+     */
+    private $tripEvents;
+
 
 
 
@@ -76,6 +81,7 @@ class Truck
         $this->adBlueRefills = new ArrayCollection();
         $this->telefonBillings = new ArrayCollection();
         $this->mileages = new ArrayCollection();
+        $this->tripEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -239,6 +245,37 @@ class Truck
     public function setData(\DateTimeInterface $data): self
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TripEvents[]
+     */
+    public function getTripEvents(): Collection
+    {
+        return $this->tripEvents;
+    }
+
+    public function addTripEvent(TripEvents $tripEvent): self
+    {
+        if (!$this->tripEvents->contains($tripEvent)) {
+            $this->tripEvents[] = $tripEvent;
+            $tripEvent->setTruck($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTripEvent(TripEvents $tripEvent): self
+    {
+        if ($this->tripEvents->contains($tripEvent)) {
+            $this->tripEvents->removeElement($tripEvent);
+            // set the owning side to null (unless already changed)
+            if ($tripEvent->getTruck() === $this) {
+                $tripEvent->setTruck(null);
+            }
+        }
 
         return $this;
     }

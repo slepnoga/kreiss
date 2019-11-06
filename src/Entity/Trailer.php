@@ -51,10 +51,16 @@ class Trailer
      */
     private $consumptionrate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TripEvents", mappedBy="trailer")
+     */
+    private $tripEvents;
+
 
     public function __construct()
     {
         $this->frigoRefills = new ArrayCollection();
+        $this->tripEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +131,37 @@ class Trailer
     public function setConsumptionrate(?float $consumptionrate): self
     {
         $this->consumptionrate = $consumptionrate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TripEvents[]
+     */
+    public function getTripEvents(): Collection
+    {
+        return $this->tripEvents;
+    }
+
+    public function addTripEvent(TripEvents $tripEvent): self
+    {
+        if (!$this->tripEvents->contains($tripEvent)) {
+            $this->tripEvents[] = $tripEvent;
+            $tripEvent->setTrailer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTripEvent(TripEvents $tripEvent): self
+    {
+        if ($this->tripEvents->contains($tripEvent)) {
+            $this->tripEvents->removeElement($tripEvent);
+            // set the owning side to null (unless already changed)
+            if ($tripEvent->getTrailer() === $this) {
+                $tripEvent->setTrailer(null);
+            }
+        }
 
         return $this;
     }
