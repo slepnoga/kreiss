@@ -128,34 +128,5 @@ class Trailer
         return $this;
     }
 
-    /**
-     * @return Collection|RefillFrigo[]
-     */
-    public function getRefillFrigos(): Collection
-    {
-        return $this->refillFrigos;
-    }
 
-    public function addRefillFrigo(RefillFrigo $refillFrigo): self
-    {
-        if (!$this->refillFrigos->contains($refillFrigo)) {
-            $this->refillFrigos[] = $refillFrigo;
-            $refillFrigo->setTrailer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRefillFrigo(RefillFrigo $refillFrigo): self
-    {
-        if ($this->refillFrigos->contains($refillFrigo)) {
-            $this->refillFrigos->removeElement($refillFrigo);
-            // set the owning side to null (unless already changed)
-            if ($refillFrigo->getTrailer() === $this) {
-                $refillFrigo->setTrailer(null);
-            }
-        }
-
-        return $this;
-    }
 }
