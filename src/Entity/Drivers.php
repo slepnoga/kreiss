@@ -67,12 +67,12 @@ class Drivers
         return $this;
     }
 
-    public function getBrightday(): ?DateTimeInterface
+    public function getBrightday(): ?\DateTimeInterface
     {
         return $this->brightday;
     }
 
-    public function setBrightday(DateTimeInterface $brightday): self
+    public function setBrightday(\DateTimeInterface $brightday): self
     {
         $this->brightday = $brightday;
 

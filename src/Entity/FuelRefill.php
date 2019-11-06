@@ -26,12 +26,10 @@ class FuelRefill
      */
     private $event;
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getEvent(): ?Truck
     {

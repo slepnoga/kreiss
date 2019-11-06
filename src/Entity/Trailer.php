@@ -60,12 +60,10 @@ class Trailer
         $this->refillFrigos = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getLicensenumber(): ?string
     {
@@ -109,7 +107,6 @@ class Trailer
 
         return $this;
     }
-
 
     public function getType(): ?int
     {

@@ -37,7 +37,6 @@ class AdBlueRefill
      */
     private $refillCountry;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -48,7 +47,7 @@ class AdBlueRefill
         return $this->refill;
     }
 
-    public function setRefill(?int $refill): self
+    public function setRefill(int $refill): self
     {
         $this->refill = $refill;
 
@@ -67,12 +66,12 @@ class AdBlueRefill
         return $this;
     }
 
-    public function getRefillDate(): ?DateTimeInterface
+    public function getRefillDate(): ?\DateTimeInterface
     {
         return $this->refillDate;
     }
 
-    public function setRefillDate(DateTimeInterface $refillDate): self
+    public function setRefillDate(\DateTimeInterface $refillDate): self
     {
         $this->refillDate = $refillDate;
 

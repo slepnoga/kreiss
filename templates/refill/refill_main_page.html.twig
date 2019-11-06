@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+{% include 'refill/refill_form_menu.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if adddriver is defined %}
+        {% include 'refill/refill_form.html.twig' %}
+    {% endif %}
+{% endblock %}
+

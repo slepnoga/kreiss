@@ -57,7 +57,7 @@ class Truck
     private $odometr;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="billing",cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="truck",cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $telefonBillings;
 
@@ -68,7 +68,6 @@ class Truck
         $this->adBlueRefills = new ArrayCollection();
         $this->telefonBillings = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -197,7 +196,7 @@ class Truck
     {
         if (!$this->telefonBillings->contains($telefonBilling)) {
             $this->telefonBillings[] = $telefonBilling;
-            $telefonBilling->setBilling($this);
+            $telefonBilling->setTruck($this);
         }
 
         return $this;
@@ -208,8 +207,8 @@ class Truck
         if ($this->telefonBillings->contains($telefonBilling)) {
             $this->telefonBillings->removeElement($telefonBilling);
             // set the owning side to null (unless already changed)
-            if ($telefonBilling->getBilling() === $this) {
-                $telefonBilling->setBilling(null);
+            if ($telefonBilling->getTruck() === $this) {
+                $telefonBilling->setTruck(null);
             }
         }
 

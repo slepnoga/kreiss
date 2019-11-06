@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\AdBlueRefill;
-use App\Entity\Telefon;
+
+use App\Entity\TelefonBilling;
 use App\Entity\Trailer;
 use App\Entity\Truck;
 use App\Form\AdBlueRefillType;
@@ -146,20 +147,22 @@ class AddInfoController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $telefon = new Telefon();
+            $telefon = new TelefonBilling();
             $truckNumber = $form->get('truck')->getData();
             $phonenumber = $form->get('phonenumber')->getData();
             $repo = $this->getDoctrine()->getRepository(Truck::class);
-            $reallicense = $repo->findOneByLicenseNumber($truckNumber)->getLicensenumber();
+            $realTruck = $repo->findOneByLicenseNumber($truckNumber);
 
-            if ($truckNumber != $reallicense) {
+            if ($truckNumber != $realTruck->getLicensenumber()) {
                 return new Response('This car not found in database!!!');
             }
+            $billing = $form->get('billance')->getData();
             $telefon->setPhonenumber($phonenumber);
-            $telefon->setTruck($truckNumber);
-            $telefon->setBilling($form->get('billance')->getData());
+            $telefon->setBillance($billing);
+            $telefon->setBillingDate($form->get('date')->getData());
+           $realTruck->addTelefonBilling($telefon);
 
-            $em->persist($telefon);
+            $em->persist($realTruck);
             $em->flush();
 
             return new Response('Telefon Saved');
@@ -174,39 +177,5 @@ class AddInfoController extends AbstractController
         );
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     * @Route("/refill/adblue", name="adblue_refill")
-     */
-    public function addBlueRefill(Request $request): Response
-    {
-        $form = $this->createForm(AdBlueRefillType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $addBlue = new AdBlueRefill();
-            $truckclass = $this->getDoctrine()->getRepository(Truck::class);
-            $truck = $truckclass->findOneByLicenseNumber('HR-6016');
-            $refilsize = $form->get('refill_size')->getData();
-            $country = $form->get('country')->getData();
-            $refillDate = $form->get('date')->getData();
-            $addBlue->setRefill($refilsize);
-            $addBlue->setRefillCountry($country);
 
-            $addBlue->setRefillDate($refillDate);
-            $truck->addAdBlueRefill($addBlue);
-
-            $em->persist($truck);
-            $em->flush();
-        }
-
-        return $this->render(
-            'add/add_main_page.html.twig',
-            [
-                'adddriver' => $form->createView(),
-
-            ]
-        );
-    }
 }
