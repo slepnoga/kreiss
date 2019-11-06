@@ -92,6 +92,7 @@ class AddInfoController extends AbstractController
             //
             $odometr= $form->get('odometr')->getData();
             $deep=$form->get('deepcomp')->getData();
+
             $mileage->setOdometr($odometr);
             $mileage->setDeepcomp($deep);
             $truck->addMileage($mileage);
