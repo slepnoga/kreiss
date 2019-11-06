@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\AdBlueRefill;
 use App\Entity\FrigoRefill;
 use App\Entity\FuelRefill;
+use App\Entity\Mileage;
 use App\Entity\Trailer;
 use App\Entity\Truck;
 use App\Form\AdBlueRefillType;
@@ -116,6 +117,7 @@ class RefillController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $refillTruck = new FuelRefill();
+            $mileage= new Mileage();
             $truckclass = $this->getDoctrine()->getRepository(Truck::class);
             $number = $form->get('licensenumber')->getData();
             $truck = $truckclass->findOneByLicenseNumber($number);
@@ -125,8 +127,13 @@ class RefillController extends AbstractController
             $refillTruck->setTruckrefill($liter);
             $country = $form->get('country')->getData();
             $refillTruck->setCountry($country);
+            $mile=$form->get('odometr') ->getData();
+            $mileage->setOdometr($mile);
+            $deepcomp= $form->get('deepcomp')->getData();
+            $mileage->setDeepcomp($deepcomp);
 
             $truck->addFuelRefill($refillTruck);
+            $truck->addMileage($mileage);
 
             $em->persist($truck);
             $em->flush();
