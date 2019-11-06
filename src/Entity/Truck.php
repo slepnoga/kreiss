@@ -57,9 +57,16 @@ class Truck
     private $telefonBillings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Mileage", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\Mileage",
+     *     mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY" )
      */
     private $mileages;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default"="1800-01-01"})
+     */
+    private $data;
+
 
 
 
@@ -220,6 +227,18 @@ class Truck
                 $mileage->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getData(): ?\DateTimeInterface
+    {
+        return $this->data;
+    }
+
+    public function setData(\DateTimeInterface $data): self
+    {
+        $this->data = $data;
 
         return $this;
     }

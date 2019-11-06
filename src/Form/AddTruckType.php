@@ -59,16 +59,17 @@ class AddTruckType extends AbstractType
                     ],
                 ]
             )
+            ->add('disel', IntegerType::class)
+            ->add('adBlue', IntegerType::class)
+
+            ->add('country', TextType::class)
+            ->setMethod('POST')
             ->add('submit', SubmitType::class)
-            ->setMethod('POST');
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => Truck::class,
-            ]
-        );
+
     }
 }
