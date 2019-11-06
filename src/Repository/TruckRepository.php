@@ -32,22 +32,21 @@ class TruckRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
-/*
+    /*
 
-    public function findOneBySomeField($value): ?Truck
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-*/
+        public function findOneBySomeField($value): ?Truck
+        {
+            return $this->createQueryBuilder('t')
+                ->andWhere('t.exampleField = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+    */
 
     public function findOneByLicenseNumber($value): ?Truck
     {
@@ -59,7 +58,7 @@ class TruckRepository extends ServiceEntityRepository
                 ->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {
         }
-        return  $res;
-    }
 
+        return $res;
+    }
 }

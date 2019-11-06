@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 
@@ -34,7 +33,7 @@ class Telefon
     private $billing;
 
     /**
-     *  @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     private $truck;
 
@@ -78,8 +77,4 @@ class Telefon
 
         return $this;
     }
-
-
-
-
 }

@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping\Table;
-use InvalidArgumentException;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrailerRepository")
@@ -67,9 +66,6 @@ class Trailer
         return $this->id;
     }
 
-  
-
-
 
     public function getLicensenumber(): ?string
     {
@@ -114,7 +110,6 @@ class Trailer
         return $this;
     }
 
-  
 
     public function getType(): ?int
     {

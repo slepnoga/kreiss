@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,7 +33,7 @@ class AdBlueRefill
     private $refillDate;
 
     /**
-     *  @ORM\Column(type="string", nullable=false, length=3)
+     * @ORM\Column(type="string", nullable=false, length=3)
      */
     private $refillCountry;
 
@@ -66,12 +67,12 @@ class AdBlueRefill
         return $this;
     }
 
-    public function getRefillDate(): ?\DateTimeInterface
+    public function getRefillDate(): ?DateTimeInterface
     {
         return $this->refillDate;
     }
 
-    public function setRefillDate(\DateTimeInterface $refillDate): self
+    public function setRefillDate(DateTimeInterface $refillDate): self
     {
         $this->refillDate = $refillDate;
 

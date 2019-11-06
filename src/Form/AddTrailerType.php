@@ -2,11 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Trailer;
 use App\Validator\TrailerLicensePlate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,10 +24,10 @@ class AddTrailerType extends AbstractType
                     'choices' => [
                         'frigo' => 1,
                         'drywan' => 2,
-                        'container' => 4
+                        'container' => 4,
                     ],
 
-                    'label' => 'Trailer Type'
+                    'label' => 'Trailer Type',
 
                 ]
             )
@@ -42,7 +40,7 @@ class AddTrailerType extends AbstractType
                         new TrailerLicensePlate(),
                     ],
                     'required' => true,
-                    'label' => 'CSDD Trailer Number, License plate number'
+                    'label' => 'CSDD Trailer Number, License plate number',
                 ]
             )
             ->add(
@@ -52,7 +50,7 @@ class AddTrailerType extends AbstractType
 
                     'data' => 2,
                     'required' => false,
-                    'label' => "consumption in liter in hour, i.e 2 or 2.3"
+                    'label' => "consumption in liter in hour, i.e 2 or 2.3",
                 ]
             )
             ->add('submit', SubmitType::class)
@@ -63,8 +61,8 @@ class AddTrailerType extends AbstractType
     {
         $resolver->setDefaults(
             [
-         //   'data_class' => Trailer::class,
-        ]
+                //   'data_class' => Trailer::class,
+            ]
         );
     }
 }

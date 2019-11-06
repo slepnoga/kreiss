@@ -2,10 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\AdBlueRefill;
-use App\Entity\Truck;
 use App\Validator\TruckNumberPlate;
-use Symfony\Component\DependencyInjection\Tests\Compiler\I;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -22,45 +19,63 @@ class AdBlueRefillType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('licensenumber', TextType::class,[
-                'label' => 'Truk License plate number',
-                'constraints'=>[
-                    new NotBlank(),
-                    new TruckNumberPlate()
+            ->add(
+                'licensenumber',
+                TextType::class,
+                [
+                    'label' => 'Truk License plate number',
+                    'constraints' => [
+                        new NotBlank(),
+                        new TruckNumberPlate(),
+                    ],
                 ]
-            ])
-            ->add('odometr',IntegerType::class,[
-                'constraints' =>[
-                    new NotBlank()
+            )
+            ->add(
+                'odometr',
+                IntegerType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('country', TextType::class,[
-                'data' =>'DE',
-                'constraints' =>[
-                    new Country(),
-                    new NotBlank()
+            )
+            ->add(
+                'country',
+                TextType::class,
+                [
+                    'data' => 'DE',
+                    'constraints' => [
+                        new Country(),
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('refill_size',IntegerType::class,[
-                'constraints'=>[
-                    new NotBlank()
+            )
+            ->add(
+                'refill_size',
+                IntegerType::class,
+                [
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
-            ])
-            ->add('date',DateType::class,[
-                'widget' => 'single_text',
-                'constraints' => [
-                    new NotBlank(),
-                    new Date(),
-                ],
+            )
+            ->add(
+                'date',
+                DateType::class,
+                [
+                    'widget' => 'single_text',
+                    'constraints' => [
+                        new NotBlank(),
+                        new Date(),
+                    ],
 
-            ])
+                ]
+            )
             ->add('submit', SubmitType::class)
-            ->setMethod('POST')
-        ;
+            ->setMethod('POST');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 }

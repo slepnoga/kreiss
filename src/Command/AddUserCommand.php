@@ -177,8 +177,10 @@ HELP;
         // Ask for the password if it's not defined
         $password = $input->getArgument('password');
         if (null !== $password) {
-            $this->io->text(' > <!--suppress HtmlUnknownTag -->
-<info>Password</info>: '.str_repeat('*', mb_strlen($password)));
+            $this->io->text(
+                ' > <!--suppress HtmlUnknownTag -->
+<info>Password</info>: '.str_repeat('*', mb_strlen($password))
+            );
         } else {
             $password = $this->io->askHidden(
                 'Password (your type will be hidden)',

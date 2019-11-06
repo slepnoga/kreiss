@@ -11,6 +11,7 @@ use App\Form\AddDriversType;
 use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
 use App\Form\AddTruckType;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,22 +98,22 @@ class AddInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $trailer = new Trailer();
-            $type= $form ->get('type')->getData();
-            $consump= $form ->get('consumptionrate')->getData();
-            $licplate= $form->get('licensenumber')->getData();
+            $type = $form->get('type')->getData();
+            $consump = $form->get('consumptionrate')->getData();
+            $licplate = $form->get('licensenumber')->getData();
             // 1 - frigo, 2 -dryvan ... see entity
             if ($type != 1 && $consump > 0) {
-              throw new \InvalidArgumentException('Non Frigo Have Fuel');
+                throw new InvalidArgumentException('Non Frigo Have Fuel');
             }
 
-            if($type ==1 ){
-                switch ($consump){
+            if ($type == 1) {
+                switch ($consump) {
                     case 2:
                         break;
                     case 2.3:
                         break;
                     default:
-                        throw new \InvalidArgumentException('Расход не тот');
+                        throw new InvalidArgumentException('Расход не тот');
                 }
             }
             $trailer->setType($type);
@@ -132,13 +133,14 @@ class AddInfoController extends AbstractController
             ]
         );
     }
+
     /**
      *
      * @Route("/addinfo/telefon", name="add_info_telefon")
      * @param Request $request
      * @return Response
      */
-    public function telefon(Request $request) :Response
+    public function telefon(Request $request): Response
     {
         $form = $this->createForm(AddTelefonType::class);
         $form->handleRequest($request);
@@ -147,21 +149,22 @@ class AddInfoController extends AbstractController
             $telefon = new Telefon();
             $truckNumber = $form->get('truck')->getData();
             $phonenumber = $form->get('phonenumber')->getData();
-            $repo=$this->getDoctrine()->getRepository(Truck::class);
+            $repo = $this->getDoctrine()->getRepository(Truck::class);
             $reallicense = $repo->findOneByLicenseNumber($truckNumber)->getLicensenumber();
 
-            if($truckNumber != $reallicense){
+            if ($truckNumber != $reallicense) {
                 return new Response('This car not found in database!!!');
             }
-            $telefon -> setPhonenumber($phonenumber);
-            $telefon ->setTruck($truckNumber);
-            $telefon ->setBilling($form->get('billance')->getData());
+            $telefon->setPhonenumber($phonenumber);
+            $telefon->setTruck($truckNumber);
+            $telefon->setBilling($form->get('billance')->getData());
 
             $em->persist($telefon);
             $em->flush();
 
             return new Response('Telefon Saved');
         }
+
         return $this->render(
             'add/add_main_page.html.twig',
             [
@@ -176,17 +179,17 @@ class AddInfoController extends AbstractController
      * @return Response
      * @Route("/refill/adblue", name="adblue_refill")
      */
-    public function  addBlueRefill(Request $request):Response
+    public function addBlueRefill(Request $request): Response
     {
         $form = $this->createForm(AdBlueRefillType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $addBlue = new AdBlueRefill();
-            $truckclass=$this->getDoctrine()->getRepository(Truck::class);
+            $truckclass = $this->getDoctrine()->getRepository(Truck::class);
             $truck = $truckclass->findOneByLicenseNumber('HR-6016');
-            $refilsize= $form->get('refill_size')->getData();
-            $country=$form->get('country')->getData();
+            $refilsize = $form->get('refill_size')->getData();
+            $country = $form->get('country')->getData();
             $refillDate = $form->get('date')->getData();
             $addBlue->setRefill($refilsize);
             $addBlue->setRefillCountry($country);
@@ -194,8 +197,8 @@ class AddInfoController extends AbstractController
             $addBlue->setRefillDate($refillDate);
             $truck->addAdBlueRefill($addBlue);
 
-            $em ->persist($truck);
-            $em ->flush();
+            $em->persist($truck);
+            $em->flush();
         }
 
         return $this->render(
