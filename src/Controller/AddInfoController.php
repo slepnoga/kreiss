@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\AdBlueRefill;
 use App\Entity\Telefon;
 use App\Entity\Trailer;
 use App\Entity\Truck;
+use App\Form\AdBlueRefillType;
 use App\Form\AddDriversType;
 use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
@@ -160,6 +162,30 @@ class AddInfoController extends AbstractController
 
             return new Response('Telefon Saved');
         }
+        return $this->render(
+            'add/add_main_page.html.twig',
+            [
+                'adddriver' => $form->createView(),
+
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/refill/adblue", name="adblue_refill")
+     */
+    public function  addBlueRefill(Request $request):Response
+    {
+        $form = $this->createForm(AdBlueRefillType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $addBlue = new AdBlueRefill();
+
+        }
+
         return $this->render(
             'add/add_main_page.html.twig',
             [
