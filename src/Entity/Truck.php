@@ -57,7 +57,8 @@ class Truck
     private $odometr;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="truck",cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="truck",cascade={"persist"},
+     *                                                          fetch="EXTRA_LAZY")
      */
     private $telefonBillings;
 

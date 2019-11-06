@@ -66,12 +66,12 @@ class AdBlueRefill
         return $this;
     }
 
-    public function getRefillDate(): ?\DateTimeInterface
+    public function getRefillDate(): ?DateTimeInterface
     {
         return $this->refillDate;
     }
 
-    public function setRefillDate(\DateTimeInterface $refillDate): self
+    public function setRefillDate(DateTimeInterface $refillDate): self
     {
         $this->refillDate = $refillDate;
 

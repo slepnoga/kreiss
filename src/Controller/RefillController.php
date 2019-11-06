@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\AdBlueRefill;
 use App\Entity\FrigoRefill;
-use App\Entity\RefillFrigo;
+use App\Entity\FuelRefill;
 use App\Entity\Trailer;
 use App\Entity\Truck;
 use App\Form\AdBlueRefillType;
@@ -24,6 +24,7 @@ class RefillController extends AbstractController
     {
         return $this->render('refill/refill_main_page.html.twig');
     }
+
     /**
      * @param Request $request
      * @return Response
@@ -63,38 +64,36 @@ class RefillController extends AbstractController
             ]
         );
     }
+
     /**
      * @param Request $request
      * @return Response
      * @Route("/refill/trailer", name="trailer_refill")
      */
 
-    public function trailer(Request $request) :Response
+    public function trailer(Request $request): Response
     {
         $form = $this->createForm(RefillFrigoType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $refillFrigo= new  FrigoRefill();
+            $refillFrigo = new  FrigoRefill();
             $trailerclass = $this->getDoctrine()->getRepository(Trailer::class);
             $number = $form->get('TrailerNumber')->getData();
             $trailer = $trailerclass->findOneByLicenseNumber($number);
-            $date=$form->get('date')->getData();
+            $date = $form->get('date')->getData();
             $refillFrigo->setDate($date);
-            $liter=$form->get('FuellLiters')->getData();
-         $refillFrigo->setRefill($liter);
+            $liter = $form->get('FuellLiters')->getData();
+            $refillFrigo->setRefill($liter);
 
 
+            $trailer->addFrigoRefill($refillFrigo);
 
-        $trailer->addFrigoRefill($refillFrigo);
+            $em->persist($refillFrigo);
+            $em->flush();
 
-        $em->persist($refillFrigo);
-        $em ->flush();
             return new Response('Trailer Refill Saved');
         }
-
-
-
 
         return $this->render(
             'refill/refill_main_page.html.twig',
@@ -110,9 +109,30 @@ class RefillController extends AbstractController
      * @return Response
      * @Route("/refill/truck", name="truck_refill")
      */
-    public function truckRefill()
+    public function truckRefill(Request $request): Response
     {
         $form = $this->createForm(RefillTruckType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $refillTruck = new FuelRefill();
+            $truckclass = $this->getDoctrine()->getRepository(Truck::class);
+            $number = $form->get('licensenumber')->getData();
+            $truck = $truckclass->findOneByLicenseNumber($number);
+            $date = $form->get('date')->getData();
+            $refillTruck->setDate($date);
+            $liter = $form->get('refill')->getData();
+            $refillTruck->setTruckrefill($liter);
+            $country = $form->get('country')->getData();
+            $refillTruck->setCountry($country);
+
+            $truck->addFuelRefill($refillTruck);
+
+            $em->persist($truck);
+            $em->flush();
+
+            return new Response('Truck Refill Saved');
+        }
 
         return $this->render(
             'refill/refill_main_page.html.twig',

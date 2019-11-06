@@ -58,6 +58,7 @@ class TrailerRepository extends ServiceEntityRepository
                 ->getOneOrNullResult();
         } catch (NonUniqueResultException $e) {
         }
-        return  $res;
+
+        return $res;
     }
 }

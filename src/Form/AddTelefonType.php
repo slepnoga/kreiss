@@ -48,11 +48,12 @@ class AddTelefonType extends AbstractType
             )
             ->add(
                 'date',
-                DateType::class,[
+                DateType::class,
+                [
                     'widget' => 'single_text',
-                    'constraints' =>[
-                        new NotBlank()
-                    ]
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
             )
             ->add('submit', SubmitType::class)

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +18,8 @@ class TelefonBilling
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="telefonBillings",cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="telefonBillings",cascade={"persist"},
+     *                                                 fetch="EXTRA_LAZY")
      */
     private $truck;
 
@@ -66,12 +68,12 @@ class TelefonBilling
         return $this;
     }
 
-    public function getBillingDate(): ?\DateTimeInterface
+    public function getBillingDate(): ?DateTimeInterface
     {
         return $this->billingDate;
     }
 
-    public function setBillingDate(\DateTimeInterface $billingDate): self
+    public function setBillingDate(DateTimeInterface $billingDate): self
     {
         $this->billingDate = $billingDate;
 

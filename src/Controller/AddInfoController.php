@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\AdBlueRefill;
-
 use App\Entity\TelefonBilling;
 use App\Entity\Trailer;
 use App\Entity\Truck;
-use App\Form\AdBlueRefillType;
 use App\Form\AddDriversType;
 use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
@@ -160,7 +157,7 @@ class AddInfoController extends AbstractController
             $telefon->setPhonenumber($phonenumber);
             $telefon->setBillance($billing);
             $telefon->setBillingDate($form->get('date')->getData());
-           $realTruck->addTelefonBilling($telefon);
+            $realTruck->addTelefonBilling($telefon);
 
             $em->persist($realTruck);
             $em->flush();
