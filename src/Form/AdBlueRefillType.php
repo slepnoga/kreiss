@@ -7,12 +7,14 @@ use App\Entity\Truck;
 use App\Validator\TruckNumberPlate;
 use Symfony\Component\DependencyInjection\Tests\Compiler\I;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Country;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AdBlueRefillType extends AbstractType
@@ -43,6 +45,14 @@ class AdBlueRefillType extends AbstractType
                 'constraints'=>[
                     new NotBlank()
                 ]
+            ])
+            ->add('date',DateType::class,[
+                'widget' => 'single_text',
+                'constraints' => [
+                    new NotBlank(),
+                    new Date(),
+                ],
+
             ])
             ->add('submit', SubmitType::class)
             ->setMethod('POST')

@@ -183,7 +183,19 @@ class AddInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $addBlue = new AdBlueRefill();
+            $truckclass=$this->getDoctrine()->getRepository(Truck::class);
+            $truck = $truckclass->findOneByLicenseNumber('HR-6016');
+            $refilsize= $form->get('refill_size')->getData();
+            $country=$form->get('country')->getData();
+            $refillDate = $form->get('date')->getData();
+            $addBlue->setRefill($refilsize);
+            $addBlue->setRefillCountry($country);
 
+            $addBlue->setRefillDate($refillDate);
+            $truck->addAdBlueRefill($addBlue);
+
+            $em ->persist($truck);
+            $em ->flush();
         }
 
         return $this->render(

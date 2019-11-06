@@ -17,14 +17,25 @@ class AdBlueRefill
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $refill;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="adBlueRefills")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", inversedBy="adBlueRefills", cascade={"persist"})
      */
     private $event;
+
+    /**
+     * @ORM\Column(type="date", nullable=false)
+     */
+    private $refillDate;
+
+    /**
+     *  @ORM\Column(type="string", nullable=false, length=3)
+     */
+    private $refillCountry;
+
 
     public function getId(): ?int
     {
@@ -51,6 +62,30 @@ class AdBlueRefill
     public function setEvent(?Truck $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getRefillDate(): ?\DateTimeInterface
+    {
+        return $this->refillDate;
+    }
+
+    public function setRefillDate(\DateTimeInterface $refillDate): self
+    {
+        $this->refillDate = $refillDate;
+
+        return $this;
+    }
+
+    public function getRefillCountry(): ?string
+    {
+        return $this->refillCountry;
+    }
+
+    public function setRefillCountry(string $refillCountry): self
+    {
+        $this->refillCountry = $refillCountry;
 
         return $this;
     }

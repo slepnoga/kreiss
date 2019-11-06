@@ -40,7 +40,7 @@ class Truck
     private $fuelRefills;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdBlueRefill", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\AdBlueRefill", mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $adBlueRefills;
 
