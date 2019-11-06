@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping\Table;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TruckRepository")
- * @Table(name="truck",indexes={@Index(name="search_idx", columns={"licensenumber", "odometr"})})
+ * @Table(name="truck",
+ *     indexes={@Index(name="search_idx", columns={"licensenumber"})})
  */
 class Truck
 {
@@ -35,26 +36,19 @@ class Truck
     private $fueltanksize;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FuelRefill", mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\FuelRefill",
+     *     mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $fuelRefills;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdBlueRefill", mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\AdBlueRefill",
+     *     mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $adBlueRefills;
 
 
-    /**
-     * @ORM\Column(type="integer")
-     *
-     */
-    private $deepcomp;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $odometr;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="truck",cascade={"persist"},
@@ -62,12 +56,19 @@ class Truck
      */
     private $telefonBillings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Mileage", mappedBy="event")
+     */
+    private $mileages;
+
+
 
     public function __construct()
     {
         $this->fuelRefills = new ArrayCollection();
         $this->adBlueRefills = new ArrayCollection();
         $this->telefonBillings = new ArrayCollection();
+        $this->mileages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,31 +162,7 @@ class Truck
         return $this;
     }
 
-    public function getDeepcomp(): ?int
-    {
-        return $this->deepcomp;
-    }
-
-    public function setDeepcomp(int $deepcomp): self
-    {
-        $this->deepcomp = $deepcomp;
-
-        return $this;
-    }
-
-    public function getOdometr(): ?int
-    {
-        return $this->odometr;
-    }
-
-    public function setOdometr(int $odometr): self
-    {
-        $this->odometr = $odometr;
-
-        return $this;
-    }
-
-    /**
+        /**
      * @return Collection|TelefonBilling[]
      */
     public function getTelefonBillings(): Collection
@@ -215,4 +192,37 @@ class Truck
 
         return $this;
     }
+
+    /**
+     * @return Collection|Mileage[]
+     */
+    public function getMileages(): Collection
+    {
+        return $this->mileages;
+    }
+
+    public function addMileage(Mileage $mileage): self
+    {
+        if (!$this->mileages->contains($mileage)) {
+            $this->mileages[] = $mileage;
+            $mileage->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMileage(Mileage $mileage): self
+    {
+        if ($this->mileages->contains($mileage)) {
+            $this->mileages->removeElement($mileage);
+            // set the owning side to null (unless already changed)
+            if ($mileage->getEvent() === $this) {
+                $mileage->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }

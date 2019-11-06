@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping\Table;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrailerRepository")
- * @Table(name="trailer",indexes={@Index(name="search_idx", columns={"type", "licensenumber"})})
+ * @Table(name="trailer",
+ *     indexes={@Index(name="search_idx", columns={"type", "licensenumber"})})
  */
 class Trailer
 {
@@ -40,7 +41,8 @@ class Trailer
     private $licensenumber;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FrigoRefill", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\FrigoRefill", mappedBy="event"
+     *     ,cascade={"persist"}, fetch="EXTRA_LAZY")
      */
     private $frigoRefills;
 
