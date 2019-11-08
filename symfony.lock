@@ -1,7 +1,4 @@
 {
-    "behat/transliterator": {
-        "version": "v1.2.0"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -81,17 +78,8 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
-    "gedmo/doctrine-extensions": {
-        "version": "v2.4.37"
-    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
-    },
-    "knplabs/knp-components": {
-        "version": "v2.2.0"
-    },
-    "knplabs/knp-paginator-bundle": {
-        "version": "v4.0.0"
     },
     "monolog/monolog": {
         "version": "1.25.1"
@@ -99,38 +87,17 @@
     "nikic/php-parser": {
         "version": "v4.2.5"
     },
-    "nyholm/psr7": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "7c0a9352a57376f04f5444e74565102c3a23d0c7"
-        },
-        "files": [
-            "config/packages/nyholm_psr7.yaml"
-        ]
-    },
     "ocramius/package-versions": {
         "version": "1.4.0"
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
     "psr/container": {
         "version": "1.0.0"
-    },
-    "psr/http-factory": {
-        "version": "1.0.1"
-    },
-    "psr/http-message": {
-        "version": "1.0.1"
     },
     "psr/log": {
         "version": "1.1.2"
@@ -145,18 +112,6 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
-        ]
-    },
-    "stof/doctrine-extensions-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
-        },
-        "files": [
-            "config/packages/stof_doctrine_extensions.yaml"
         ]
     },
     "symfony/apache-pack": {
@@ -322,9 +277,6 @@
     "symfony/property-access": {
         "version": "v4.3.6"
     },
-    "symfony/psr-http-message-bridge": {
-        "version": "v1.2.0"
-    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -368,19 +320,6 @@
     },
     "symfony/stopwatch": {
         "version": "v4.3.6"
-    },
-    "symfony/translation": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
-        },
-        "files": [
-            "config/packages/translation.yaml",
-            "translations/.gitignore"
-        ]
     },
     "symfony/translation-contracts": {
         "version": "v1.1.7"
