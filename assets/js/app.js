@@ -10,6 +10,7 @@ require('../scss/app.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
+global.$ = global.jQuery = $;
 require('bootstrap');
 
 
@@ -19,3 +20,5 @@ require('bootstrap-star-rating/css/star-rating.css');
 require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 require('bootstrap-sass');
 require('bootstrap-datepicker');
+require ('jqueryui');
+require('./ajax_truck.js');

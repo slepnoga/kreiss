@@ -35,11 +35,12 @@ class Events extends AbstractController
     }
 
     /**
-     * @Route("/events/ajax/truck", name="app_ajax_search_truck")
+     * @Route("/events/ajax/truck", name="app_ajax_search_truck", methods="GET")
      */
     public function event_truck_ajax(Request $request, TruckRepository $truckRepository)
     {
         $truck = $truckRepository->findAllMatching($request);
+        
         return $this->json([
             'truck' =>$truck
             ],200,[],['groups' => ['main']]

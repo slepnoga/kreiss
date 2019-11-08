@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Events;
+use App\Repository\TruckRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class AddEventsType extends AbstractType
 {
-    private $userRepository;
+    private $truckRepository;
     private $router;
 
 
@@ -22,16 +23,16 @@ class AddEventsType extends AbstractType
      * @param UserRepository  $userRepository
      * @param RouterInterface $router
      */
-    public function __construct(UserRepository $userRepository, RouterInterface $router)
+    public function __construct(TruckRepository $truckRepository, RouterInterface $router)
     {
-        $this->userRepository = $userRepository;
+        $this->truckRepository = $truckRepository;
         $this->router = $router;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('truck', TextType::class)
+            ->add('licensenumber', TextType::class)
             ->add('submit', SubmitType::class)
         ;
     }
@@ -39,12 +40,17 @@ class AddEventsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'invalid_message' => 'Hmm, user not found!',
+            'finder_callback' => function(TruckRepository $truckRepository, string $licensenumber) {
+                return $truckRepository->findOneBy(['licensenumber' => $licensenumber]);
+            },
             'attr' => [
                 'class' => 'js-user-autocomplete',
                 'data-autocomplete-url' => $this->router->generate('app_ajax_search_truck')
             ]
         ]);
-
-
     }
+
+
+
 }

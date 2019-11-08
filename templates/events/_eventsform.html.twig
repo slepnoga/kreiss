@@ -1,7 +1,46 @@
-
 {% block body %}
 
 
-{{ form(eventform) }}
+
+
+    {{ form(eventform) }}
+    <script type="application/javascript">
+
+        jQuery(function(){
+           $(document).ready(function ($) {
+               var autocompleteUrl = $(this).data('autocomplete-url');
+               $.ajax({
+                   type: "GET",
+                   url: "/someurlhere",
+                   dataType: "json", // text, html, xml
+                   //additional settings come here
+               });
+           });
+
+        });
+/*
+
+        jQuery(document).ready(function($) {
+            $('.js-user-autocomplete').each(function() {
+                var autocompleteUrl = $(this).data('autocomplete-url');
+                $(this).autocomplete({hint: false}, [
+                    {
+                        source: function(query, cb) {
+                            $.ajax({
+                                url: autocompleteUrl
+                            }).then(function(data) {
+                                cb(data.licensenumber);
+                            });
+                        },
+                        displayKey: 'licensenumber',
+                        debounce: 500 // only request every 1/2 second
+                    }
+                ])
+            });
+        });
+
+ */
+    </script>
+
 
 {% endblock %}

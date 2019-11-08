@@ -23,6 +23,8 @@
         "bootstrap-sass": "^3.4.1",
         "bootstrap-star-rating": "^4.0.6",
         "jquery": "^3.4.1",
+        "jquery-ui": "^1.12.1",
+        "jqueryui": "^1.11.1",
         "popper.js": "^1.16.0"
     }
 }
