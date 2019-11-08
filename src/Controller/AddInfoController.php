@@ -12,6 +12,7 @@ use App\Form\AddDriversType;
 use App\Form\AddTelefonType;
 use App\Form\AddTrailerType;
 use App\Form\AddTruckType;
+use Doctrine\ORM\NonUniqueResultException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,22 @@ class AddInfoController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('add/add_main_page.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $truck = $em->getRepository(Truck::class)->getTruckCount();
+        } catch (NonUniqueResultException $e) {
+        }
+        try {
+            $trailer = $em->getRepository(Trailer::class)->getTrailerCount();
+        } catch (NonUniqueResultException $e) {
+        }
+
+        $stat = true;
+        return $this->render('add/add_main_page.html.twig',[
+            'truck' => $truck,
+            'trailer' => $trailer,
+            'stat' => $stat
+        ]);
     }
 
     /**

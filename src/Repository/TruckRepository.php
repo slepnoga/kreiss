@@ -61,4 +61,20 @@ class TruckRepository extends ServiceEntityRepository
 
         return $res;
     }
+
+    /**
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function getTruckCount()
+    {
+        $res = $this->createQueryBuilder('t')
+                ->select('count(t.id)')
+                ->getQuery()
+                ->useQueryCache(true)
+                ->useResultCache(true, 3600)
+                ->getSingleScalarResult();
+
+        return $res;
+    }
 }

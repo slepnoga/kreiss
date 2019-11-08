@@ -51,14 +51,18 @@ class Truck
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling", mappedBy="truck",cascade={"persist"},
-     *                                                          fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling",
+     *     mappedBy="truck",cascade={"persist", "merge", "remove"},
+     *     fetch="EXTRA_LAZY")
      */
     private $telefonBillings;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Mileage",
-     *     mappedBy="event",cascade={"persist"}, fetch="EXTRA_LAZY" )
+     *     mappedBy="event",
+     *     cascade={"persist", "merge", "remove"},
+     *     fetch="EXTRA_LAZY" )
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     private $mileages;
 

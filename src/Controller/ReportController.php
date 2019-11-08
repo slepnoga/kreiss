@@ -5,11 +5,11 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class OtchetController extends AbstractController
+class ReportController extends AbstractController
 {
 
     /**
-     * @Route("/otchet", name="otchet_main")
+     * @Route("/report", name="app_report_main")
      */
 
 

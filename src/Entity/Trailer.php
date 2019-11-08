@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\Table;
  * @ORM\Entity(repositoryClass="App\Repository\TrailerRepository")
  * @Table(name="trailer",
  *     indexes={@Index(name="search_idx", columns={"type", "licensenumber"})})
+ *  @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class Trailer
 {
@@ -42,7 +43,8 @@ class Trailer
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FrigoRefill", mappedBy="event"
-     *     ,cascade={"persist"}, fetch="EXTRA_LAZY")
+     *     ,cascade={"persist", "merge", "remove"}, fetch="EXTRA_LAZY")
+     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
     private $frigoRefills;
 

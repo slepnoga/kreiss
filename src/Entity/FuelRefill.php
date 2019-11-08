@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FuelRefillRepository")
+ *  @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class FuelRefill
 {

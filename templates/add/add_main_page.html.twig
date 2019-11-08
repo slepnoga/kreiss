@@ -8,5 +8,9 @@
     {% if adddriver is defined %}
         {% include 'add/addform.html.twig' %}
     {% endif %}
+
+    {% if stat is defined %}
+        {% include 'add/_add_stat.html.twig' %}
+    {% endif %}
 {% endblock %}
 
