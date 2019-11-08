@@ -3,5 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
+    {% if stat is defined %}
+        {% include 'add/_add_stat.html.twig' %}
+    {% endif %}
 {% endblock %}
