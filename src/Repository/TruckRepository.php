@@ -77,4 +77,15 @@ class TruckRepository extends ServiceEntityRepository
 
         return $res;
     }
+
+    public function findAllMatching(string $query, int $limit = 10)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.licensenumber LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

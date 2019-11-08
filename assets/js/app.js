@@ -11,9 +11,8 @@ require('../scss/app.scss');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 require('bootstrap');
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
+
+
 require('bootstrap-star-rating');
 
 require('bootstrap-star-rating/css/star-rating.css');

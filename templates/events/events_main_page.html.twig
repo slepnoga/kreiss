@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+{% include 'events/_events_menu.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if eventform is defined %}
+        {% include 'events/_eventsform.html.twig' %}
+    {% endif %}
+
+
+{% endblock %}
+
