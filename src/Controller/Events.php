@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Truck;
 use App\Form\AddEventsType;
 use App\Repository\TruckRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,13 @@ class Events extends AbstractController
         $form = $this->createForm(AddEventsType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $number = $form->get('licensenumber')->getData();
+            $em = $this->getDoctrine()->getManager();
+            $truckRepository= $this->getDoctrine()
+                ->getRepository(Truck::class);
+            $events= new Events();
+            $truck = $truckRepository->findOneByLicenseNumber($number);
+
         }
 
         return $this->render(
@@ -34,9 +42,11 @@ class Events extends AbstractController
     /**
      * @Route("/events/ajax/truck", name="app_ajax_search_truck", methods="GET")
      */
-    public function event_truck_ajax(Request $request, TruckRepository $truckRepository)
+    public function event_truck_ajax(Request $request)
     {
-        $truck = $truckRepository->findAllMatching($request);
+        $truckRepository= $this->getDoctrine()
+            ->getRepository(Truck::class);
+        $truck = $truckRepository->findAllLicenseNumber();
 
         return $this->json(
             [

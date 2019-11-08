@@ -2,14 +2,16 @@
 
 namespace App\Form;
 
-use App\Repository\TruckRepository;
-use App\Repository\UserRepository;
+use App\Validator\TruckNumberPlate;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Validator\Constraints\Country;
 
 class AddEventsType extends AbstractType
 {
@@ -17,37 +19,51 @@ class AddEventsType extends AbstractType
     private $router;
 
 
-    /**
-     * AddEventsType constructor.
-     * @param UserRepository  $userRepository
-     * @param RouterInterface $router
-     */
-    public function __construct(TruckRepository $truckRepository, RouterInterface $router)
-    {
-        $this->truckRepository = $truckRepository;
-        $this->router = $router;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('licensenumber', TextType::class)
-            ->add('submit', SubmitType::class);
+            ->add('licensenumber', TextType::class, [
+                'constraints' =>[
+                    new TruckNumberPlate()
+                ],
+                'invalid_message' => 'Hmm, truck not found!',
+                'attr' => [
+                    'class' => 'js-user-autocomplete',
+
+                ],
+
+            ])
+            ->add('direction')
+            ->add('date', DateType::class, [
+                'widget' =>'single_text'
+            ])
+            ->add('country', TextType::class, [
+                'constraints'=>[
+                    new Country()
+                ]
+            ])
+            ->add('address', TextType::class)
+            ->add('goods', TextType::class)
+            ->add('weight', IntegerType::class)
+            ->add('temp', IntegerType::class)
+            ->add('rezim', ChoiceType::class, [
+                'choices' =>[
+                    'Постоянка'=> true,
+                    'Авто'=> false
+
+                ]
+            ])
+            ->add('mileage', IntegerType::class)
+            ->add('disel', IntegerType::class)
+            ->add('frigo', IntegerType::class)
+            ->add('motorhours', IntegerType::class)
+            ->add('submit', SubmitType::class)
+            ->setMethod('POST')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'invalid_message' => 'Hmm, user not found!',
-                'finder_callback' => function (TruckRepository $truckRepository, string $licensenumber) {
-                    return $truckRepository->findOneBy(['licensenumber' => $licensenumber]);
-                },
-                'attr' => [
-                    'class' => 'js-user-autocomplete',
-                    'data-autocomplete-url' => $this->router->generate('app_ajax_search_truck'),
-                ],
-            ]
-        );
+
     }
 }

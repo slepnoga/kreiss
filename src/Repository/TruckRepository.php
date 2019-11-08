@@ -87,4 +87,14 @@ class TruckRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllLicenseNumber()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.licensenumber')
+            ->setMaxResults('50')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
