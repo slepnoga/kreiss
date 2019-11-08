@@ -20,5 +20,5 @@ require('bootstrap-star-rating/css/star-rating.css');
 require('bootstrap-star-rating/themes/krajee-svg/theme.css');
 require('bootstrap-sass');
 require('bootstrap-datepicker');
-require ('jqueryui');
+require('jqueryui');
 require('./ajax_truck.js');

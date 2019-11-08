@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Events;
 use App\Repository\TruckRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
@@ -33,24 +32,22 @@ class AddEventsType extends AbstractType
     {
         $builder
             ->add('licensenumber', TextType::class)
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'invalid_message' => 'Hmm, user not found!',
-            'finder_callback' => function(TruckRepository $truckRepository, string $licensenumber) {
-                return $truckRepository->findOneBy(['licensenumber' => $licensenumber]);
-            },
-            'attr' => [
-                'class' => 'js-user-autocomplete',
-                'data-autocomplete-url' => $this->router->generate('app_ajax_search_truck')
+        $resolver->setDefaults(
+            [
+                'invalid_message' => 'Hmm, user not found!',
+                'finder_callback' => function (TruckRepository $truckRepository, string $licensenumber) {
+                    return $truckRepository->findOneBy(['licensenumber' => $licensenumber]);
+                },
+                'attr' => [
+                    'class' => 'js-user-autocomplete',
+                    'data-autocomplete-url' => $this->router->generate('app_ajax_search_truck'),
+                ],
             ]
-        ]);
+        );
     }
-
-
-
 }

@@ -40,12 +40,13 @@ class TrailerRepository extends ServiceEntityRepository
      */
     public function getTrailerCount()
     {
-        $res= $this ->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->getQuery()
-                ->useQueryCache(true)
-                ->useResultCache(true, 3600)
-                ->getSingleScalarResult();
+        $res = $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->getQuery()
+            ->useQueryCache(true)
+            ->useResultCache(true, 3600)
+            ->getSingleScalarResult();
+
         return $res;
     }
 }

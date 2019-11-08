@@ -41,11 +41,15 @@ class AddInfoController extends AbstractController
         }
 
         $stat = true;
-        return $this->render('add/add_main_page.html.twig',[
-            'truck' => $truck,
-            'trailer' => $trailer,
-            'stat' => $stat
-        ]);
+
+        return $this->render(
+            'add/add_main_page.html.twig',
+            [
+                'truck' => $truck,
+                'trailer' => $trailer,
+                'stat' => $stat,
+            ]
+        );
     }
 
     /**
@@ -87,42 +91,42 @@ class AddInfoController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $mileage= new Mileage();
-            $refill= new FuelRefill();
+            $mileage = new Mileage();
+            $refill = new FuelRefill();
 
             $truckclass = $this->getDoctrine()->getRepository(Truck::class);
             $number = $form->get('licensenumber')->getData();
-            $fueltanksize= $form->get('fueltanksize')->getData();
-            $country=$form->get('country')->getData();
+            $fueltanksize = $form->get('fueltanksize')->getData();
+            $country = $form->get('country')->getData();
 
             $tz = geoip_time_zone_by_country_and_region($country);
 
             $tz_object = new \DateTimeZone($tz);
-            $date= new \DateTime();
+            $date = new \DateTime();
             $date->setTimezone($tz_object);
 
-            if (!empty($truckclass->findOneByLicenseNumber($number))){
+            if (!empty($truckclass->findOneByLicenseNumber($number))) {
                 return new Response('This truck is alredy database.');
             }
             $truck = new Truck();
             $truck->setLicensenumber($number);
             $truck->setFueltanksize($fueltanksize);
             //
-            $odometr= $form->get('odometr')->getData();
-            $deep=$form->get('deepcomp')->getData();
+            $odometr = $form->get('odometr')->getData();
+            $deep = $form->get('deepcomp')->getData();
 
             $mileage->setOdometr($odometr);
             $mileage->setDeepcomp($deep);
             $truck->addMileage($mileage);
             //
-            $disel=$form->get('disel')->getData();
+            $disel = $form->get('disel')->getData();
             $refill->setTruckrefill($disel);
             $refill->setCountry($country);
             $refill->setDate($date);
             $truck->addFuelRefill($refill);
 
             //
-            $adblue= new AdBlueRefill();
+            $adblue = new AdBlueRefill();
             $adbl = $form->get('adBlue')->getData();
             $adblue->setRefill($adbl);
             $adblue->setRefillCountry($country);

@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Truck;
 use App\Validator\TruckNumberPlate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -61,15 +60,12 @@ class AddTruckType extends AbstractType
             )
             ->add('disel', IntegerType::class)
             ->add('adBlue', IntegerType::class)
-
             ->add('country', TextType::class)
             ->setMethod('POST')
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 }

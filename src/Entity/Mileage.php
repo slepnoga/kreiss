@@ -22,7 +22,6 @@ class Mileage
     private $event;
 
 
-
     /**
      * @ORM\Column(type="integer")
      *

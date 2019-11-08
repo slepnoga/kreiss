@@ -50,8 +50,6 @@ class Truck
     private $adBlueRefills;
 
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\TelefonBilling",
      *     mappedBy="truck",cascade={"persist", "merge", "remove"},
@@ -77,8 +75,6 @@ class Truck
      * @ORM\OneToMany(targetEntity="App\Entity\TripEvents", mappedBy="truck")
      */
     private $tripEvents;
-
-
 
 
     public function __construct()
@@ -181,7 +177,7 @@ class Truck
         return $this;
     }
 
-        /**
+    /**
      * @return Collection|TelefonBilling[]
      */
     public function getTelefonBillings(): Collection
@@ -285,6 +281,4 @@ class Truck
 
         return $this;
     }
-
-   
 }

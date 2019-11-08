@@ -26,10 +26,14 @@ class FrontController extends AbstractController
         }
 
         $stat = true;
-        return $this->render('front/index.html.twig',[
-            'truck' => $truck,
-            'trailer' => $trailer,
-            'stat' => $stat
-        ]);
+
+        return $this->render(
+            'front/index.html.twig',
+            [
+                'truck' => $truck,
+                'trailer' => $trailer,
+                'stat' => $stat,
+            ]
+        );
     }
 }

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\Table;
  * @ORM\Entity(repositoryClass="App\Repository\TrailerRepository")
  * @Table(name="trailer",
  *     indexes={@Index(name="search_idx", columns={"type", "licensenumber"})})
- *  @ORM\Cache(usage="NONSTRICT_READ_WRITE")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  */
 class Trailer
 {

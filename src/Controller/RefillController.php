@@ -117,7 +117,7 @@ class RefillController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $refillTruck = new FuelRefill();
-            $mileage= new Mileage();
+            $mileage = new Mileage();
             $truckclass = $this->getDoctrine()->getRepository(Truck::class);
             $number = $form->get('licensenumber')->getData();
             $truck = $truckclass->findOneByLicenseNumber($number);
@@ -127,9 +127,9 @@ class RefillController extends AbstractController
             $refillTruck->setTruckrefill($liter);
             $country = $form->get('country')->getData();
             $refillTruck->setCountry($country);
-            $mile=$form->get('odometr') ->getData();
+            $mile = $form->get('odometr')->getData();
             $mileage->setOdometr($mile);
-            $deepcomp= $form->get('deepcomp')->getData();
+            $deepcomp = $form->get('deepcomp')->getData();
             $mileage->setDeepcomp($deepcomp);
 
             $truck->addFuelRefill($refillTruck);
