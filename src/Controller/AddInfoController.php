@@ -15,6 +15,7 @@ use App\Form\AddTruckType;
 use Doctrine\ORM\NonUniqueResultException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,7 @@ class AddInfoController extends AbstractController
      * @return Response
      *
      */
+
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
@@ -62,7 +64,7 @@ class AddInfoController extends AbstractController
             $em->persist($driver);
             $em->flush();
 
-            return new Response('User Saved');
+            return new RedirectResponse('/addinfo');
         }
 
         return $this->render(
@@ -128,12 +130,10 @@ class AddInfoController extends AbstractController
             $truck->addAdBlueRefill($adblue);
             $truck->setData($date);
 
-
             $em->persist($truck);
+            $em->flush();
 
-         $em->flush();
-
-            return new Response('Truck Saved');
+            return new RedirectResponse('/addinfo');
         }
 
 
@@ -183,7 +183,7 @@ class AddInfoController extends AbstractController
             $em->persist($trailer);
             $em->flush();
 
-            return new Response('Trailer Saved');
+            return new RedirectResponse('/addinfo');
         }
 
         return $this->render(
@@ -225,7 +225,7 @@ class AddInfoController extends AbstractController
             $em->persist($realTruck);
             $em->flush();
 
-            return new Response('Telefon Saved');
+            return new RedirectResponse('/addinfo');
         }
 
         return $this->render(
