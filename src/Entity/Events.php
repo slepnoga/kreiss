@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventsRepository")
+ * @ORM\Table(
+ *    indexes={@Index(name="search_idx", columns={"event_date"})}))
+ * )
  */
 class Events
 {
@@ -18,12 +22,12 @@ class Events
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Truck", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Truck", cascade={"persist", "remove"})
      */
     private $truck;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trailer", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trailer", cascade={"persist", "remove"})
      */
     private $trailer;
 
@@ -32,7 +36,7 @@ class Events
      */
     private $direction;
     /**
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="datetimetz", nullable=false, unique=true)
      */
     private $eventDate;
 

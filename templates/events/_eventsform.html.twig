@@ -1,9 +1,12 @@
 {% block body %}
-
-
-
-
     {{ form(eventform) }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <script type="application/javascript">
 
         jQuery(function () {

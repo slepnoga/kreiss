@@ -6,9 +6,11 @@ use App\Validator\TrailerLicensePlate;
 use App\Validator\TruckNumberPlate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -54,16 +56,16 @@ class AddEventsType extends AbstractType
 
             ->add('direction', ChoiceType::class, [
                 'choices'=>[
-                    'Tranzit' => 'tranzit',
-                    'Loads' => 'load',
-                    'Unloads' => 'unload'
+                    'Tranzit' => 't',
+                    'Loads' => 'l',
+                    'Unloads' => 'u'
                 ],
                 'constraints' =>[
                     new NotBlank()
                 ]
             ])
-            ->add('date', DateType::class, [
-                'widget' =>'single_text',
+            ->add('date', DateTimeType::class, [
+                'widget' =>'single_text'
             ])
             ->add('country', TextType::class, [
                 'constraints'=>[
@@ -85,6 +87,7 @@ class AddEventsType extends AbstractType
             ->add('disel', IntegerType::class)
             ->add('frigo', IntegerType::class)
             ->add('motorhours', IntegerType::class)
+            ->add('prim', TextareaType::class)
             ->add('submit', SubmitType::class)
             ->setMethod('POST')
         ;
