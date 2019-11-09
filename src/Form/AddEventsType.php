@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Validator\TrailerLicensePlate;
 use App\Validator\TruckNumberPlate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -11,12 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Constraints\Country;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AddEventsType extends AbstractType
 {
     private $truckRepository;
     private $router;
+
+    public function __construct(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
 
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -27,15 +35,35 @@ class AddEventsType extends AbstractType
                     new TruckNumberPlate()
                 ],
                 'invalid_message' => 'Hmm, truck not found!',
+                'label' =>'truck',
                 'attr' => [
                     'class' => 'js-user-autocomplete',
+                    'data-autocomplete-url' => $this->router->generate('app_ajax_search_truck'),
 
                 ],
 
             ])
-            ->add('direction')
+            ->add('trailerlicense', TextType::class, [
+                'constraints' =>[
+                    new TrailerLicensePlate()
+                ],
+                'invalid_message' => 'Hmm, tailer not found!',
+                'label' =>'trailer',
+                'required' => false,
+            ])
+
+            ->add('direction',ChoiceType::class,[
+                'choices'=>[
+                    'Tranzit' => 'tranzit',
+                    'Loads' => 'load',
+                    'Unloads' => 'unload'
+                ],
+                'constraints' =>[
+                    new NotBlank()
+                ]
+            ])
             ->add('date', DateType::class, [
-                'widget' =>'single_text'
+                'widget' =>'single_text',
             ])
             ->add('country', TextType::class, [
                 'constraints'=>[
@@ -64,6 +92,5 @@ class AddEventsType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 }

@@ -3,9 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Trailer;
 use App\Entity\Truck;
+use App\Entity\Events as OEvents;
 use App\Form\AddEventsType;
-use App\Repository\TruckRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +22,20 @@ class Events extends AbstractController
         $form = $this->createForm(AddEventsType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $number = $form->get('licensenumber')->getData();
+            $truckNumber = $form->get('licensenumber')->getData();
+            $trailerNumber=$form->get('trailerlicense')->getData();
             $em = $this->getDoctrine()->getManager();
             $truckRepository= $this->getDoctrine()
                 ->getRepository(Truck::class);
-            $events= new Events();
-            $truck = $truckRepository->findOneByLicenseNumber($number);
+            $trailerRepository= $this->getDoctrine()
+                ->getRepository(Trailer::class);
 
+            $events= new OEvents();
+            $truck = $truckRepository->findOneByLicenseNumber($truckNumber);
+            $trailer = $trailerRepository->findOneByLicenseNumber($trailerNumber);
+             $events->setTruck($truck);
+             $events ->setTrailer($trailer);
+            dd($events);
         }
 
         return $this->render(
