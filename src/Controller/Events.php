@@ -33,9 +33,11 @@ class Events extends AbstractController
             $events= new OEvents();
             $truck = $truckRepository->findOneByLicenseNumber($truckNumber);
             $trailer = $trailerRepository->findOneByLicenseNumber($trailerNumber);
-             $events->setTruck($truck);
-             $events ->setTrailer($trailer);
-            dd($events);
+            $events->setTruck($truck);
+            $events ->setTrailer($trailer);
+
+
+            $em->persist($events);
         }
 
         return $this->render(

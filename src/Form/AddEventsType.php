@@ -52,7 +52,7 @@ class AddEventsType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('direction',ChoiceType::class,[
+            ->add('direction', ChoiceType::class, [
                 'choices'=>[
                     'Tranzit' => 'tranzit',
                     'Loads' => 'load',
